@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PaceGain · 빠른걸음 — 쇼케이스 & 출시 리포트</title>
+<meta name="description" content="PaceGain · 빠른걸음 — 평소보다 빠르게 걸어 아낀 시간을 확인하는 걷기 앱">
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<a class="brand" href=""><img src="assets/icon-192.png" alt="">PaceGain</a>
+<h1>Walk faster,<br><span class="accent">win back time.</span></h1>
+<p class="lead">평소보다 조금 빠르게 걸으면 하루에 몇 분이 남는지 보여주는 걷기 습관 앱 — 전체 결과물 쇼케이스</p>
+</div></header>
+<main><div class="wrap">
+<section class="card">
+<h2>1. 랜딩 히어로 영상 · Landing Hero Video (1080p)</h2>
+<p>PaceGain은 평소 걷는 속도를 기준으로 조금 더 빠르게 걸어 아낀 시간을 보여주는 iPhone · Apple Watch · Android · Wear OS 앱입니다. 회원가입, 광고, 분석 SDK 없이 기기 안에서 동작합니다.</p>
+<p class="meta">PaceGain shows how much time you save by walking a little faster than your usual pace — on iPhone, Apple Watch, Android and Wear OS. No account, no ads, no analytics.</p>
+<video class="video-frame" src="assets/landing.mp4" autoplay muted loop playsinline controls></video>
+<div class="links">
+<a class="button" href="assets/landing.mp4" download>랜딩 영상 다운로드 (MP4 · 1920×1080)</a>
+<a class="button ghost" href="assets/tutorial.mp4" download>튜토리얼 영상 다운로드 (MP4 · 1080×1920)</a>
+</div>
+</section>
+
+<section class="card" style="border: 2px solid var(--emerald);">
+<h2>📱 Android 실기기 테스트용 정식 릴리스 APK (v1.0.0)</h2>
+<p>Play Store 등록 전 실기기에서 직접 걸어보고 검증할 수 있는 서명된 정식 릴리스 APK 파일입니다. <b>비밀번호 입력 후</b> 다운로드가 시작됩니다.</p>
+<div class="links">
+<button class="button" onclick="downloadApk('phone')">📲 스마트폰용 APK 다운로드 (3.5MB)</button>
+<button class="button ghost" onclick="downloadApk('watch')">⌚ Galaxy Watch(Wear OS)용 APK 다운로드 (2.5MB)</button>
+</div>
+<p class="meta" style="margin-top: 14px;">• 설치 방법: 스마트폰 브라우저에서 다운로드 후 실행 › "출처를 알 수 없는 앱 설치" 허용 시 즉시 설치됩니다.<br>• 서명 검증: RSA 4096-bit 릴리스 키 자체 서명 완료 (Version 1.0.0, Build 1)</p>
+<script>
+async function sha256Prefix(text) {
+  const enc = new TextEncoder().encode(text);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  return hash.slice(0, 16);
+}
+async function downloadApk(type) {
+  const pw = prompt('다운로드 비밀번호를 입력해 주세요:');
+  if (!pw) return;
+  if (pw.trim().toLowerCase() !== 'pace') {
+    alert('비밀번호가 올바르지 않습니다.');
+    return;
+  }
+  const prefix = await sha256Prefix(pw.trim().toLowerCase() + '-' + type);
+  const filename = type === 'phone' ? 'pacegain-phone-v1.0.0.apk' : 'pacegain-watch-v1.0.0.apk';
+  const a = document.createElement('a');
+  a.href = 'downloads/' + prefix + '/' + filename;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+</script>
+</section>
+
+<section class="card">
+<h2>2. 사용 튜토리얼 · Step-by-Step Tutorial & Walkthrough Video</h2>
+<ol>
+<li><b>건강 기록 한 번 연결 (Onboarding & Permissions)</b>: 첫 실행 온보딩에서 주간 걷기 목표(주 1~7일)와 매일 걷기 알림 시간을 고르고, Apple 건강(HealthKit) 또는 Android Health Connect 권한을 연결합니다.</li>
+<li><b>평소 속도 자동 학습 & 직접 설정 (Usual Pace Baseline)</b>: 최근 걷기 운동 기록이 충분하면 평소 걷기 속도(km/h · 분/km)를 자동으로 계산합니다. 설정에서 직접 입력하거나 워치의 <i>“평소 걸음 측정”</i> 모드로 5분·100m 이상 걸어 측정할 수도 있습니다.</li>
+<li><b>오늘 요약 & 주간 목표 링 (Today & Weekly Goal Ring)</b>: 오늘 아낀 예상 시간·거리·칼로리와 주간 목표 달성 링을 홈 화면에서 한눈에 확인합니다.</li>
+<li><b>워치 단독 실시간 측정 (Standalone Watch Tracking)</b>: Apple Watch · Wear OS 워치에서 시작 한 번으로 실시간 절약 시간(`+분/초`)과 평소 대비 속도 배율(`1.16×`)을 보며 걸을 수 있습니다. 측정이 끝나면 페어링된 휴대폰으로 자동 동기화됩니다.</li>
+<li><b>PaceGain Pro 기간 비교 & 기록 관리 (Insights & History)</b>: 선택형 일회성 구매(비소모성 인앱 상품)로 최근 7·30·90일 성과를 직전 동일 기간과 비교하고, 기록 탭에서 날짜별 걷기 상세 내역을 관리합니다.</li>
+</ol>
+<video class="video-frame portrait" src="assets/tutorial.mp4" autoplay muted loop playsinline controls></video>
+</section>
+
+<section class="card">
+<h2>3. iPhone (App Store) 스크린샷 갤러리 · 6종</h2>
+<p class="meta">클릭하면 원본 고해상도(1290×2796) 이미지를 새 창에서 볼 수 있습니다.</p>
+<div class="shots">
+<figure class="shot-item"><a href="assets/screenshots/ios/01-onboarding.png" target="_blank"><img src="assets/screenshots/ios/01-onboarding.png" alt="iOS 01 Onboarding"></a><figcaption>01 · 온보딩 & 목표 설정</figcaption></figure>
+<figure class="shot-item"><a href="assets/screenshots/ios/02-today.png" target="_blank"><img src="assets/screenshots/ios/02-today.png" alt="iOS 02 Today"></a><figcaption>02 · 오늘 아낀 시간 & 주간 링</figcaption></figure>
+<figure class="shot-item"><a href="assets/screenshots/ios/03-pro.png" target="_blank"><img src="assets/screenshots/ios/03-pro.png" alt="iOS 03 Pro"></a><figcaption>03 · PaceGain Pro 안내</figcaption></figure>
+<figure class="shot-item"><a href="assets/screenshots/ios/04-insights.png" target="_blank"><img src="assets/screenshots/ios/04-insights.png" alt="iOS 04 Insights"></a><figcaption>04 · 7·30·90일 기간 비교</figcaption></figure>
+<figure class="shot-item"><a href="assets/screenshots/ios/05-history.png" target="_blank"><img src="assets/screenshots/ios/05-history.png" alt="iOS 05 History"></a><figcaption>05 · 날짜별 걷기 기록</figcaption></figure>
+<figure class="shot-item"><a href="assets/screenshots/ios/06-settings.png" target="_blank"><img src="assets/screenshots/ios/06-settings.png" alt="iOS 06 Settings"></a><figcaption>06 · 평소 속도 & 알림 설정</figcaption></figure>
+</div>
+</section>
+
+<section class="card">
+<h2>4. Android (Google Play) 스크린샷 갤러리 · 6종</h2>
+<p class="meta">클릭하면 원본 고해상도(1080×2400) 이미지를 새 창에서 볼 수 있습니다.</p>
+<div class="shots">
+<figure class="shot-item"><a href="assets/screenshots/android/phone-01-onboarding.png" target="_blank"><img src="assets/screenshots/android/phone-01-onboarding.png" alt="Android 01 Onboarding"></a><figcaption>01 · 온보딩 & 목표 설정</figcaption></figure>
+<figure class="shot-item"><a href="assets/screenshots/android/phone-02-today.png" target="_blank"><img src="assets/screenshots/android/phone-02-today.png" alt="Android 02 Today"></a><figcaption>02 · 오늘 아낀 시간 & 주간 링</figcaption></figure>
+<figure class="shot-item"><a href="assets/screenshots/android/phone-03-pro.png" target="_blank"><img src="assets/screenshots/android/phone-03-pro.png" alt="Android 03 Pro"></a><figcaption>03 · PaceGain Pro 안내</figcaption></figure>
+<figure class="shot-item"><a href="assets/screenshots/android/phone-04-insights.png" target="_blank"><img src="assets/screenshots/android/phone-04-insights.png" alt="Android 04 Insights"></a><figcaption>04 · 7·30·90일 기간 비교</figcaption></figure>
+<figure class="shot-item"><a href="assets/screenshots/android/phone-05-history.png" target="_blank"><img src="assets/screenshots/android/phone-05-history.png" alt="Android 05 History"></a><figcaption>05 · 날짜별 걷기 기록</figcaption></figure>
+<figure class="shot-item"><a href="assets/screenshots/android/phone-06-settings.png" target="_blank"><img src="assets/screenshots/android/phone-06-settings.png" alt="Android 06 Settings"></a><figcaption>06 · 평소 속도 & 알림 설정</figcaption></figure>
+</div>
+</section>
+
+<section class="card">
+<h2>5. 스토어 그래픽 배너 · Store Feature Graphics (1024×500)</h2>
+<div class="banner-grid">
+<figure class="shot-item"><a href="assets/screenshots/feature-graphic-ko.png" target="_blank"><img src="assets/screenshots/feature-graphic-ko.png" alt="Feature Graphic KO"></a><figcaption>한국어 스토어 그래픽 (ko-KR)</figcaption></figure>
+<figure class="shot-item"><a href="assets/screenshots/feature-graphic-en.png" target="_blank"><img src="assets/screenshots/feature-graphic-en.png" alt="Feature Graphic EN"></a><figcaption>영문 스토어 그래픽 (en-US)</figcaption></figure>
+</div>
+</section>
+
+<section class="card">
+<h2>6. 상용 출시 준비 및 검증 리포트 · Commercial Release v1.0.0 Report</h2>
+<p>실기기 수동 테스트를 제외한 모든 코드, 스토어 컴플라이언스, 인앱 결제 검증, 단위 테스트 및 릴리스 번들 빌드가 완료되어 <code>origin/main</code> 브랜치에 반영되었습니다.</p>
+<table class="report-table">
+<thead>
+<tr><th>검증 영역</th><th>상태</th><th>세부 내역</th></tr>
+</thead>
+<tbody>
+<tr><td><b>Apple 코어 & StoreKit 테스트</b></td><td><span class="badge">PASS (43/43)</span></td><td><code>PaceGainCoreTests</code> (도메인 36개 + <code>ProPurchaseStoreTests</code> 7개 통과)</td></tr>
+<tr><td><b>Apple Xcode 빌드</b></td><td><span class="badge">PASS</span></td><td><code>PaceGainPhone</code> (iOS Debug/Release), <code>PaceGainWatch</code> (watchOS Debug) 빌드 성공</td></tr>
+<tr><td><b>Android 단위 테스트</b></td><td><span class="badge">PASS (58/58)</span></td><td><code>:core:test</code> (43개) + <code>:mobile:testDebugUnitTest</code> (15개, Billing/HealthConnect/Sync 포함)</td></tr>
+<tr><td><b>Android Lint & Release AAB</b></td><td><span class="badge">PASS</span></td><td><code>:mobile:lintDebug</code>, <code>:wear:lintDebug</code> 에러 0건 · R8 축소 적용 <code>:mobile:bundleRelease</code>, <code>:wear:bundleRelease</code> 생성 완료</td></tr>
+<tr><td><b>스토어 정책 & 개인정보 컴플라이언스</b></td><td><span class="badge">PASS</span></td><td>iOS/watchOS <code>PrivacyInfo.xcprivacy</code>, HealthKit & Health Connect 권한 사유, ProGuard/R8 규칙 완비</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="card">
+<h2>7. 법적 고지 및 고객 지원 문서 · Legal & Support Pages</h2>
+<ul>
+<li><a href="privacy/">개인정보 처리방침 · Privacy Policy (한국어 / English)</a></li>
+<li><a href="terms/">이용약관 · Terms of Use (한국어 / English)</a></li>
+<li><a href="support/">고객 지원 & FAQ · Support</a></li>
+</ul>
+</section>
+</div></main>
+<footer>
+<a href="privacy/">개인정보 처리방침 · Privacy</a>
+<a href="terms/">이용약관 · Terms</a>
+<a href="support/">지원 · Support</a>
+<p>© 2026 casewingit</p>
+</footer>
+</body>
+</html>
